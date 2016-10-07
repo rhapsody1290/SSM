@@ -7,16 +7,14 @@
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--去配置扫描包，使@Controller生效-->
+    <!--去配置扫描包，使@Controller生效，更改工程名-->
     <context:component-scan base-package="cn.apeius.usermanage.controller"/>
 
     <!--配置注解驱动，会默认加载HandlerMapping，HandlerAdapter-->
     <mvc:annotation-driven />
 
-    <mvc:resources mapping="/css/**" location="/css/"/>
-    <mvc:resources mapping="/*.html" location="/"/>
-    <mvc:resources mapping="/image/**" location="/image/" />
-    <mvc:resources mapping="/file/**" location="/file/" />
+    <!--过滤掉所有的静态资源，把静态资直接交给tomcat去处理-->
+    <mvc:default-servlet-handler/>
 
     <!--视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
