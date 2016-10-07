@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace：名字空间，唯一标识，不需要特别的起名称，只要保证所有的mapper中唯一即可-->
+<mapper namespace="cn.apeius.usermanage.mapper.UserMapper">
+    <select id="queryUserById" resultType="User">
+        select * from tb_user where id = #{id}
+    </select>
+    <!-- resultType为结果集映射的java的类型 -->
+    <select id="queryAllUser" resultType="cn.apeius.mybatis.domain.User">
+        select * from tb_user
+    </select>
+
+    <!-- parameterType：定义传入参数类型 -->
+    <insert id="addUser">
+        INSERT INTO tb_user VALUES (NULL,#{user_name},#{password},#{name},#{age},#{sex},#{birthday},NOW(),NOW())
+    </insert>
+    
+    <update id="updateUser">
+        UPDATE tb_user SET user_name = #{user_name},password = #{password},name = #{name}, age = #{age}, sex = #{sex}, birthday = #{birthday}, updated = NOW() WHERE id=#{id}
+    </update>
+
+    <delete id="deleteUserById">
+        delete from tb_user where id = #{id}
+    </delete>
+
+    <select id="login" resultType="cn.apeius.mybatis.domain.User">
+        select * from tb_user where user_name = #{username} and password = #{password}
+    </select>
+
+    <select id="queryUserByTableName" resultType="cn.apeius.mybatis.domain.User">
+        select * from ${tableName}
+    </select>
+</mapper>
