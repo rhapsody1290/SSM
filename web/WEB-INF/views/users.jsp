@@ -85,7 +85,7 @@ var toolbar = [{
     	}
     	$.messager.confirm('确认','确定删除ID为 '+ids+' 的会员吗？',function(r){
     	    if (r){
-            	$.post("/user/delete",{'ids':ids}, function(data){
+            	$.post("/ssm/user/delete",{'ids':ids}, function(data){
         			if(data.status == 200){
         				$.messager.alert('提示','删除会员成功!',undefined,function(){
         					$("#userList").datagrid("reload");
@@ -103,7 +103,7 @@ var toolbar = [{
     	var page = optins.pageNumber;
     	var rows = optins.pageSize;
     	$("<form>").attr({
-    		"action":"/user/export/excel",
+    		"action":"/ssm/user/export/excel",
     		"method":"POST"
     	}).append("<input type='text' name='page' value='"+page+"'/>")
     	.append("<input type='text' name='rows' value='"+rows+"'/>").submit();

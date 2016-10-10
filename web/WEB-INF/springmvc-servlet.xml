@@ -29,4 +29,11 @@
         <!-- 设定文件上传的最大值5MB，5*1024*1024 -->
         <property name="maxUploadSize" value="5242880"></property>
     </bean>
+
+    <bean name="userExcel" class="cn.apeius.usermanage.view.UserExcelView"/>
+
+    <!--定义视图解析器-->
+    <bean class = "org.springframework.web.servlet.view.BeanNameViewResolver">
+        <property name="order" value="1"/>
+    </bean>
 </beans>

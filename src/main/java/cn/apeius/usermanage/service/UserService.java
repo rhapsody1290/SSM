@@ -1,6 +1,7 @@
 package cn.apeius.usermanage.service;
 
 import cn.apeius.usermanage.domain.EasyUIPage;
+import cn.apeius.usermanage.domain.User;
 
 import java.util.List;
 
@@ -9,5 +10,9 @@ import java.util.List;
  */
 public interface UserService {
 
-    EasyUIPage queryAllUsers();
+    EasyUIPage queryAllUsers(Integer pageNow, Integer pageSize);
+
+    Integer addUser(User user);
+
+    Integer deleteUserByIds(List<Object> ids);
 }

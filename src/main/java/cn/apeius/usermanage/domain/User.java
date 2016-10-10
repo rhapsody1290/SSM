@@ -1,16 +1,26 @@
 package cn.apeius.usermanage.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.ibatis.type.Alias;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
+
+@Table(name="tb_user")
 public class User {
 
+    @Id
     private Long id;
 
     // 用户名
-    private String user_name;
+    @Column(name="user_name")
+    private String userName;
 
     // 密码
+    @JsonIgnore
     private String password;
 
     // 姓名
@@ -23,6 +33,7 @@ public class User {
     private Integer sex;
 
     // 出生日期
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
     // 创建时间
@@ -39,12 +50,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -105,7 +116,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "cn.apeius.mybatis.domain.User [id=" + id + ", user_name=" + user_name + ", password=" + password + ", name=" + name
+        return "cn.apeius.mybatis.domain.User [id=" + id + ", user_name=" + userName + ", password=" + password + ", name=" + name
                 + ", age=" + age + ", sex=" + sex + ", birthday=" + birthday + ", created=" + created
                 + ", updated=" + updated + "]";
     }

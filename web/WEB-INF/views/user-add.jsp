@@ -60,7 +60,7 @@
 				
 				{
 					  type: "POST",
-					  url: "/user/save",
+					  url: "/ssm/user/save",
 					  dataType: "json",
 					  data: $("#content").serialize(),
 					  success: function(data){
