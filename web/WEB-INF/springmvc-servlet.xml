@@ -7,7 +7,7 @@
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--去配置扫描包，使@Controller生效，更改工程名-->
+    <!--★★★去配置扫描包，使@Controller生效-->
     <context:component-scan base-package="cn.apeius.usermanage.controller"/>
 
     <!--配置注解驱动，会默认加载HandlerMapping，HandlerAdapter-->
@@ -32,7 +32,7 @@
 
     <bean name="userExcel" class="cn.apeius.usermanage.view.UserExcelView"/>
 
-    <!--定义视图解析器-->
+    <!--定义bean视图解析器-->
     <bean class = "org.springframework.web.servlet.view.BeanNameViewResolver">
         <property name="order" value="1"/>
     </bean>

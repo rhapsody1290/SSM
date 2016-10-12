@@ -2,19 +2,23 @@ package cn.apeius.usermanage.controller;
 
 import cn.apeius.usermanage.domain.EasyUIPage;
 import cn.apeius.usermanage.domain.User;
-import cn.apeius.usermanage.domain.UserForm;
 import cn.apeius.usermanage.service.UserService;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.impl.crypto.MacProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpSession;
-import java.util.*;
+import javax.servlet.http.HttpServletResponse;
+import java.security.Key;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Asus on 2016/10/7.
@@ -22,6 +26,8 @@ import java.util.*;
 @RequestMapping(value = "/user")
 @Controller
 public class UserController {
+
+    private Key key = MacProvider.generateKey();
 
     @Autowired
     private UserService userService;
@@ -32,6 +38,53 @@ public class UserController {
         return pageName;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/login")
+    public Map<String,Object> login(User user,HttpServletResponse response){
+        Map<String, Object> result = new HashMap<String, Object>();
+
+        if("qm".equals(user.getName()) && "123".equals(user.getPassword())){
+            //创建token
+            String compactJws = Jwts.builder()
+                    .setSubject("Joe")
+                    .signWith(SignatureAlgorithm.HS512, key)
+                    .compact();
+
+            result.put("status","200");
+            result.put("msg","登录成功");
+            result.put("token",compactJws);
+        }else{
+            result.put("status","400");
+            result.put("msg","用户名或密码错误");
+        }
+
+        return result;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/main")
+    public Map<String,Object> main(@RequestParam(value = "token",defaultValue = "") String token) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        try{
+            Jwts.parser().setSigningKey(key).parseClaimsJws(token);
+            if(!Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getSubject().equals("Joe")) throw new RuntimeException();
+            //OK, we can trust this JWT
+            result.put("status","200");
+        }catch (Exception e){
+            //don't trust the JWT!
+            result.put("status","400");
+        }
+
+        return result;
+    }
+
+
+    /**
+     * 用户列表
+     * @param pageNow
+     * @param pageSize
+     * @return
+     */
     @RequestMapping(value = "/list")
     @ResponseBody
     public EasyUIPage list(@RequestParam(value = "page", defaultValue = "1") Integer pageNow,
@@ -60,6 +113,12 @@ public class UserController {
         return map;
     }
 
+    /**
+     * 导出用户信息
+     * @param pageNow
+     * @param pageSize
+     * @return
+     */
     @RequestMapping(value = "export/excel")
     public ModelAndView export(@RequestParam(value = "page", defaultValue = "1") Integer pageNow,
                                @RequestParam(value = "rows", defaultValue = "5") Integer pageSize){
@@ -72,6 +131,11 @@ public class UserController {
         return mv;
     }
 
+    /**
+     * 删除用户
+     * @param ids
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/delete")
     //springmvc会自动把逗号切割，变成一个数组
@@ -86,11 +150,4 @@ public class UserController {
         return map;
     }
 
-    @RequestMapping(value = "test")
-    @ResponseBody
-    public Map<String, String> test(HttpSession session){
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("sid",session.getId());
-        return map;
-    }
 }

@@ -194,5 +194,11 @@
             <artifactId>mapper</artifactId>
             <version>2.3.4</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.7.0</version>
+        </dependency>
     </dependencies>
 </project>

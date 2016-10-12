@@ -1,4 +1,4 @@
-package cn.apeius.usermanage.service;
+package cn.apeius.usermanage.service.imp;
 
 
 import cn.apeius.usermanage.domain.EasyUIPage;

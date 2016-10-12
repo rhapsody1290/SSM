@@ -36,6 +36,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>springmvc</servlet-name>
+        <!--/表示所有的请求都会进入DispatcherServlet，不会拦截jsp，/*会拦截jsp-->
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
