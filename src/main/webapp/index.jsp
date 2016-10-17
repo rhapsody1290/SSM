@@ -11,7 +11,7 @@
     <title>$Title$</title>
 </head>
 <body>
-    <%--默认访问跳转页面--%>
+    <%--首页——默认访问跳转页面--%>
     <jsp:forward page="/user/page/users"/>
 </body>
 </html>
