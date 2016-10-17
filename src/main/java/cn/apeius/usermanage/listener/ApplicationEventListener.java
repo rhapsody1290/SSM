@@ -18,8 +18,11 @@ public class ApplicationEventListener implements ApplicationListener{
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
         //容器关闭时触发的事件
         if(applicationEvent instanceof ContextClosedEvent){
+            /** 应用或框架应该自己来保证在销毁时将JDBC Driver反注册掉
+             * 参考：http://jncumter.blog.51cto.com/812546/1749568
+             */
             try {
-                System.out.println("应用过程关闭");
+                //System.out.println("应用过程关闭");
                 Enumeration<Driver> drivers = DriverManager.getDrivers();
                 while(drivers.hasMoreElements()){
                     Driver driver = drivers.nextElement();
