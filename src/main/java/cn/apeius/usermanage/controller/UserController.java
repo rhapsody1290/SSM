@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.security.Key;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,6 @@ import java.util.Map;
 @Controller
 public class UserController {
 
-    private Key key = MacProvider.generateKey();
 
     @Autowired
     private UserService userService;
@@ -38,38 +38,16 @@ public class UserController {
         return pageName;
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/login")
-    public Map<String,Object> login(User user,HttpServletResponse response){
-        Map<String, Object> result = new HashMap<String, Object>();
-
-        if("qm".equals(user.getName()) && "123".equals(user.getPassword())){
-            //创建token
-            String compactJws = Jwts.builder()
-                    .setSubject("Joe")
-                    .signWith(SignatureAlgorithm.HS512, key)
-                    .compact();
-
-            result.put("status","200");
-            result.put("msg","登录成功");
-            result.put("token",compactJws);
-        }else{
-            result.put("status","400");
-            result.put("msg","用户名或密码错误");
-        }
-
-        return result;
-    }
 
     @ResponseBody
     @RequestMapping(value = "/main")
     public Map<String,Object> main(@RequestParam(value = "token",defaultValue = "") String token) {
         Map<String, Object> result = new HashMap<String, Object>();
         try{
-            Jwts.parser().setSigningKey(key).parseClaimsJws(token);
+            /*Jwts.parser().setSigningKey(key).parseClaimsJws(token);
             if(!Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getSubject().equals("Joe")) throw new RuntimeException();
             //OK, we can trust this JWT
-            result.put("status","200");
+            result.put("status","200");*/
         }catch (Exception e){
             //don't trust the JWT!
             result.put("status","400");
