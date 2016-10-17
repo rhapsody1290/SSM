@@ -7,10 +7,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
+<head>
     <title>$Title$</title>
-  </head>
-  <body>
-  <jsp:forward page="/user/page/users"/>
-  </body>
+</head>
+<body>
+    <%--默认访问跳转页面--%>
+    <jsp:forward page="/user/page/users"/>
+</body>
 </html>
