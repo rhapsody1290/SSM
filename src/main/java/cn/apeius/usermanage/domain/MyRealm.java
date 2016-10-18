@@ -1,4 +1,4 @@
-package cn.apeius.usermanage.util.realm;
+package cn.apeius.usermanage.domain;
 
 /**
  * Created by Asus on 2016/10/17.
