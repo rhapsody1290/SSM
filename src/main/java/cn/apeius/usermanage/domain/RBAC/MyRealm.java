@@ -1,4 +1,4 @@
-package cn.apeius.usermanage.domain;
+package cn.apeius.usermanage.domain.RBAC;
 
 /**
  * Created by Asus on 2016/10/17.
@@ -18,13 +18,48 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 
-/**
- * 自定义的指定Shiro验证用户登录的类
+/** 实现鉴权和授权
+ *  1、鉴权：判断用户是否合法
+ *  2、授权：用户是否有操作的权限
  * 在本例中定义了2个用户:jadyer和玄玉,jadyer具有admin角色和admin:manage权限,玄玉不具有任何角色和权限
- * @create Sep 29, 2013 3:15:31 PM
- * @author 玄玉<http://blog.csdn.net/jadyer>
+ * 参考：http://blog.csdn.net/jadyer
  */
 public class MyRealm extends AuthorizingRealm {
+
+    /**
+     * 验证当前登录的Subject
+     * 经测试:本例中该方法的调用时机为LoginController.login()方法中执行Subject.login()时
+     */
+    @Override
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
+        //获取基于用户名和密码的令牌
+        //实际上这个authcToken是从LoginController里面currentUser.login(token)传过来的
+        UsernamePasswordToken token = (UsernamePasswordToken)authcToken;
+        System.out.println("验证当前Subject时获取到token为" + ReflectionToStringBuilder.toString(token, ToStringStyle.MULTI_LINE_STYLE));
+//      User user = userService.getByUsername(token.getUsername());
+//      if(null != user){
+//          AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), user.getNickname());
+//          this.setSession("currentUser", user);
+//          return authcInfo;
+//      }else{
+//          return null;
+//      }
+        //此处无需比对,比对的逻辑Shiro会做,我们只需返回一个和令牌相关的正确的验证信息
+        //说白了就是第一个参数填登录用户名,第二个参数填合法的登录密码(可以是从数据库中取到的,本例中为了演示就硬编码了)
+        //这样一来,在随后的登录页面上就只有这里指定的用户和密码才能通过验证
+        if("jadyer".equals(token.getUsername())){
+            AuthenticationInfo authcInfo = new SimpleAuthenticationInfo("jadyer", "jadyer", this.getName());
+            this.setSession("currentUser", "jadyer");
+            return authcInfo;
+        }else if("玄玉".equals(token.getUsername())){
+            AuthenticationInfo authcInfo = new SimpleAuthenticationInfo("玄玉", "xuanyu", this.getName());
+            this.setSession("currentUser", "玄玉");
+            return authcInfo;
+        }
+        //没有返回登录用户名对应的SimpleAuthenticationInfo对象时,就会在LoginController中抛出UnknownAccountException异常
+        return null;
+    }
+
     /**
      * 为当前登录的Subject授予角色和权限
      * 经测试:本例中该方法的调用时机为需授权资源被访问时
@@ -44,7 +79,7 @@ public class MyRealm extends AuthorizingRealm {
 //          //实体类User中包含有用户角色的实体类信息
 //          if(null!=user.getRoles() && user.getRoles().size()>0){
 //              //获取当前登录用户的角色
-//              for(Role role : user.getRoles()){
+//              for(RoleMapper role : user.getRoles()){
 //                  roleList.add(role.getName());
 //                  //实体类Role中包含有角色权限的实体类信息
 //                  if(null!=role.getPermissions() && role.getPermissions().size()>0){
@@ -83,40 +118,7 @@ public class MyRealm extends AuthorizingRealm {
     }
 
 
-    /**
-     * 验证当前登录的Subject
-     * 经测试:本例中该方法的调用时机为LoginController.login()方法中执行Subject.login()时
-     */
-    @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
-        //获取基于用户名和密码的令牌
-        //实际上这个authcToken是从LoginController里面currentUser.login(token)传过来的
-        //两个token的引用都是一样的,本例中是org.apache.shiro.authc.UsernamePasswordToken@33799a1e
-        UsernamePasswordToken token = (UsernamePasswordToken)authcToken;
-        System.out.println("验证当前Subject时获取到token为" + ReflectionToStringBuilder.toString(token, ToStringStyle.MULTI_LINE_STYLE));
-//      User user = userService.getByUsername(token.getUsername());
-//      if(null != user){
-//          AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), user.getNickname());
-//          this.setSession("currentUser", user);
-//          return authcInfo;
-//      }else{
-//          return null;
-//      }
-        //此处无需比对,比对的逻辑Shiro会做,我们只需返回一个和令牌相关的正确的验证信息
-        //说白了就是第一个参数填登录用户名,第二个参数填合法的登录密码(可以是从数据库中取到的,本例中为了演示就硬编码了)
-        //这样一来,在随后的登录页面上就只有这里指定的用户和密码才能通过验证
-        if("jadyer".equals(token.getUsername())){
-            AuthenticationInfo authcInfo = new SimpleAuthenticationInfo("jadyer", "jadyer", this.getName());
-            this.setSession("currentUser", "jadyer");
-            return authcInfo;
-        }else if("玄玉".equals(token.getUsername())){
-            AuthenticationInfo authcInfo = new SimpleAuthenticationInfo("玄玉", "xuanyu", this.getName());
-            this.setSession("currentUser", "玄玉");
-            return authcInfo;
-        }
-        //没有返回登录用户名对应的SimpleAuthenticationInfo对象时,就会在LoginController中抛出UnknownAccountException异常
-        return null;
-    }
+
 
 
     /**

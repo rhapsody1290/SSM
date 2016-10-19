@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import cn.apeius.usermanage.domain.User;
+import cn.apeius.usermanage.domain.RBAC.User;
 import cn.apeius.usermanage.util.Constants;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;

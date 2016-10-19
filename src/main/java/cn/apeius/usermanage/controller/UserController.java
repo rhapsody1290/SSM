@@ -1,11 +1,8 @@
 package cn.apeius.usermanage.controller;
 
 import cn.apeius.usermanage.domain.EasyUIPage;
-import cn.apeius.usermanage.domain.User;
+import cn.apeius.usermanage.domain.RBAC.User;
 import cn.apeius.usermanage.service.UserService;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.impl.crypto.MacProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,9 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletResponse;
-import java.security.Key;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

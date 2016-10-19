@@ -1,16 +1,14 @@
 package cn.apeius.usermanage.controller;
 
-import cn.apeius.usermanage.domain.User;
+import cn.apeius.usermanage.domain.RBAC.User;
 import cn.apeius.usermanage.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.impl.crypto.MacProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.security.Key;
 import java.util.HashMap;

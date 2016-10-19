@@ -1,4 +1,4 @@
-package cn.apeius.usermanage.domain;
+package cn.apeius.usermanage.domain.RBAC;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.ibatis.type.Alias;
@@ -7,21 +7,35 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Date;
-
+import java.util.List;
+//表名默认使用类名，驼峰转下划线，如不符合可以使用@Table自己指定
 @Table(name="tb_user")
 public class User {
 
     @Id
     private Long id;
 
-    // 用户名
+    // 用户名，字段默认为驼峰形式，如不符合可以使用@Column指定
     @Column(name="user_name")
     private String userName;
 
     // 密码
     @JsonIgnore
     private String password;
+
+    //一个用户具有多个角色，@Transient 注解表示roles不是表中的字段
+    @Transient
+    private List<Role> roles;
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
     // 姓名
     private String name;
