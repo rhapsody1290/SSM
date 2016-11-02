@@ -1,4 +1,4 @@
-package cn.apeius.usermanage.domain.RBAC;
+package cn.apeius.usermanage.domain;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -12,29 +12,8 @@ import java.util.List;
 public class Role {
     @Id
     private Long id;
+    //角色名称
     private String roleName;
-    //一个角色对应多个用户
-    @Transient
-    private List<User> users;
-    //一个角色有多个权限
-    @Transient
-    private List<Permission> permissions;
-
-    public List<Permission> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<Permission> permissions) {
-        this.permissions = permissions;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
 
     public Long getId() {
         return id;
@@ -57,8 +36,6 @@ public class Role {
         return "Role{" +
                 "id=" + id +
                 ", roleName='" + roleName + '\'' +
-                ", users=" + users +
-                ", permissions=" + permissions +
                 '}';
     }
 }

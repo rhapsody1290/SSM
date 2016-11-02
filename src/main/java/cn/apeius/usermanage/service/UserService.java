@@ -1,7 +1,7 @@
 package cn.apeius.usermanage.service;
 
 import cn.apeius.usermanage.domain.EasyUIPage;
-import cn.apeius.usermanage.domain.RBAC.User;
+import cn.apeius.usermanage.domain.User;
 
 import java.util.List;
 

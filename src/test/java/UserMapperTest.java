@@ -1,5 +1,5 @@
-import cn.apeius.usermanage.domain.RBAC.User;
-import cn.apeius.usermanage.mapper.RBAC.UserMapper;
+import cn.apeius.usermanage.domain.User;
+import cn.apeius.usermanage.mapper.UserMapper;
 import com.github.abel533.entity.Example;
 import org.junit.After;
 import org.junit.Before;

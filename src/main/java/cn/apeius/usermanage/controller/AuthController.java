@@ -1,6 +1,6 @@
 package cn.apeius.usermanage.controller;
 
-import cn.apeius.usermanage.domain.RBAC.User;
+import cn.apeius.usermanage.domain.User;
 import cn.apeius.usermanage.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

@@ -248,9 +248,9 @@
                 <artifactId>tomcat-maven-plugin</artifactId>
                 <version>1.1</version>
                 <configuration>
-                    <path>/wp</path>
+                    <path>/</path>
                     <port>8080</port>
-                    <uriEncoding>UTF-8</uriEncoding>
+                    <uriEncoding>${maven.compiler.encoding}</uriEncoding>
                     <url>http://localhost:8080/manager/html</url>
                     <server>tomcat6</server>
                 </configuration>

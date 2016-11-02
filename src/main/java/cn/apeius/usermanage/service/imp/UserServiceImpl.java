@@ -2,8 +2,8 @@ package cn.apeius.usermanage.service.imp;
 
 
 import cn.apeius.usermanage.domain.EasyUIPage;
-import cn.apeius.usermanage.domain.RBAC.User;
-import cn.apeius.usermanage.mapper.RBAC.UserMapper;
+import cn.apeius.usermanage.domain.User;
+import cn.apeius.usermanage.mapper.UserMapper;
 import cn.apeius.usermanage.service.UserService;
 import com.github.abel533.entity.Example;
 import com.github.pagehelper.PageHelper;

@@ -1,7 +1,6 @@
-package cn.apeius.usermanage.domain.RBAC;
+package cn.apeius.usermanage.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.apache.ibatis.type.Alias;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -13,46 +12,25 @@ import java.util.List;
 //表名默认使用类名，驼峰转下划线，如不符合可以使用@Table自己指定
 @Table(name="tb_user")
 public class User {
-
     @Id
     private Long id;
-
     // 用户名，字段默认为驼峰形式，如不符合可以使用@Column指定
     @Column(name="user_name")
     private String userName;
-
     // 密码
     @JsonIgnore
     private String password;
-
-    //一个用户具有多个角色，@Transient 注解表示roles不是表中的字段
-    @Transient
-    private List<Role> roles;
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
-
     // 姓名
     private String name;
-
     // 年龄
     private Integer age;
-
     // 性别，1男性，2女性
     private Integer sex;
-
     // 出生日期
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
-
     // 创建时间
     private Date created;
-
     // 更新时间
     private Date updated;
 
@@ -130,9 +108,16 @@ public class User {
 
     @Override
     public String toString() {
-        return "cn.apeius.mybatis.domain.User [id=" + id + ", user_name=" + userName + ", password=" + password + ", name=" + name
-                + ", age=" + age + ", sex=" + sex + ", birthday=" + birthday + ", created=" + created
-                + ", updated=" + updated + "]";
+        return "User{" +
+                "age=" + age +
+                ", id=" + id +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", sex=" + sex +
+                ", birthday=" + birthday +
+                ", created=" + created +
+                ", updated=" + updated +
+                '}';
     }
-
 }

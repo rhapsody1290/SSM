@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace：名字空间，唯一标识，不需要特别的起名称，只要保证所有的mapper中唯一即可-->
+<mapper namespace="cn.apeius.usermanage.mapper.UserMapper">
+    <resultMap id="UserRolesResultMap" type="User">
+        <id property="id" column="id"/>
+        <result property="userName" column="u_user_name"/>
+        <collection property="roles" javaType="List" ofType="Role">
+        </collection>
+    </resultMap>
+    <select id="queryUserRolesById" resultMap="UserRolesResultMap">
+      SELECT
+        u.id as u_id,
+        u.user_name as u_user_name,
+
+        r.role_name as r_role_name
+      FROM
+        tb_user u
+      LEFT JOIN tb_user_role ur ON u.id = ur.user_id
+      LEFT JOIN tb_role r ON r.id = ur.role_id
+      WHERE
+        u.id = #{id}
+    </select>
+</mapper>

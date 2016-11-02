@@ -1,4 +1,4 @@
-package cn.apeius.usermanage.domain.RBAC;
+package cn.apeius.usermanage.util;
 
 /**
  * Created by Asus on 2016/10/17.
