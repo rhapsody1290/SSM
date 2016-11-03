@@ -1,3 +1,4 @@
+import cn.apeius.usermanage.domain.Resource;
 import cn.apeius.usermanage.domain.Role;
 import cn.apeius.usermanage.mapper.RoleMapper;
 import org.junit.Before;
@@ -6,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Asus on 2016/10/19.
@@ -28,6 +30,25 @@ public class RoleMapperTest {
         for(Role r : roles){
             System.out.println(r);
         }
+    }
+
+    @Test
+    public void testQueryRolesByUserId(){
+        List<Role> roles = mapper.queryRolesByUserId(1L);
+        for(Role r : roles)
+            System.out.println(r);
+    }
+
+    @Test
+    public void testQueryResourcesByUserId(){
+        Set<Resource> resources = mapper.queryResourcesByUserId(1L);
+        System.out.println(resources);
+    }
+
+    @Test
+    public void testQueryResourceByRoleId(){
+        List<Resource> resources = mapper.queryResourceByRoleId(3L);
+        System.out.println(resources);
     }
 
 }
