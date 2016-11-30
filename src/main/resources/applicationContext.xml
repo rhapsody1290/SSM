@@ -34,6 +34,6 @@
     <bean id="sytemEventListener" class="cn.apeius.usermanage.listener.ApplicationEventListener"></bean>
 
     <!--★★★扫描组件,不同工程需要更改工程名-->
-    <context:component-scan base-package="cn.apeius.usermanage.service.imp"/>
+    <context:component-scan base-package="cn.apeius.usermanage"/>
 
 </beans>

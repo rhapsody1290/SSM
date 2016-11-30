@@ -10,9 +10,18 @@ import java.util.List;
  */
 public interface UserService {
 
-    EasyUIPage queryAllUsers(Integer pageNow, Integer pageSize);
+    //查询所有用户
+    public List<User> queryAllUsers(Integer pageNow, Integer pageSize);
+    //查询用户
+    public User queryUserById(Long userId);
+    //增加用户
+    public Integer addUser(User user);
+    //删除用户
+    public Integer deleteUserByIds(List<Object> ids);
+    //注册,失败抛出异常
+    public void register(User user);
+    //登录
+    public User login(String username, String password);
 
-    Integer addUser(User user);
 
-    Integer deleteUserByIds(List<Object> ids);
 }

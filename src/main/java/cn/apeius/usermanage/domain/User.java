@@ -7,11 +7,12 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 //表名默认使用类名，驼峰转下划线，如不符合可以使用@Table自己指定
 @Table(name="tb_user")
-public class User {
+public class User implements Serializable{
     @Id
     private Long id;
     // 用户名，字段默认为驼峰形式，如不符合可以使用@Column指定

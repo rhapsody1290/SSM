@@ -41,7 +41,7 @@ public class RoleMapperTest {
 
     @Test
     public void testQueryResourcesByUserId(){
-        Set<Resource> resources = mapper.queryResourcesByUserId(1L);
+        List<Resource> resources = mapper.queryResourcesByUserId(1L);
         System.out.println(resources);
     }
 

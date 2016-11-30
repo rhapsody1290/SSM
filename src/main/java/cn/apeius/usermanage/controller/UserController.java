@@ -3,6 +3,8 @@ package cn.apeius.usermanage.controller;
 import cn.apeius.usermanage.domain.EasyUIPage;
 import cn.apeius.usermanage.domain.User;
 import cn.apeius.usermanage.service.UserService;
+import com.github.pagehelper.PageInfo;
+import org.apache.commons.io.filefilter.AgeFileFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,10 +20,10 @@ import java.util.Map;
 /**
  * Created by Asus on 2016/10/7.
  */
-@RequestMapping(value = "/user")
-@Controller
-public class UserController {
 
+@Controller
+@RequestMapping(value = "/user")
+public class UserController {
 
     @Autowired
     private UserService userService;
@@ -61,7 +63,15 @@ public class UserController {
     @ResponseBody
     public EasyUIPage list(@RequestParam(value = "page", defaultValue = "1") Integer pageNow,
                            @RequestParam(value = "rows", defaultValue = "5") Integer pageSize){
-        EasyUIPage easyUIPage = userService.queryAllUsers(pageNow,pageSize);
+
+
+        List<User> users = userService.queryAllUsers(pageNow,pageSize);
+        PageInfo<User> pageInfo = new PageInfo<User>(users);
+
+        EasyUIPage easyUIPage = new EasyUIPage();
+        easyUIPage.setTotal(pageInfo.getTotal());
+        easyUIPage.setRows(pageInfo.getList());
+
         return easyUIPage;
     }
 
@@ -95,10 +105,11 @@ public class UserController {
     public ModelAndView export(@RequestParam(value = "page", defaultValue = "1") Integer pageNow,
                                @RequestParam(value = "rows", defaultValue = "5") Integer pageSize){
         //1、查询需要导出的数据
-        EasyUIPage page = this.userService.queryAllUsers(pageNow,pageSize);
+        List<User> users = this.userService.queryAllUsers(pageNow, pageSize);
+
         //2、传递数据
         ModelAndView mv = new ModelAndView();
-        mv.addObject("userList",page.getRows());
+        mv.addObject("userList",users);
         mv.setViewName("userExcel");//定义到自定义的excel视图
         return mv;
     }

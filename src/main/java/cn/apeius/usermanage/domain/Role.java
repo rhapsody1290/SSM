@@ -14,6 +14,8 @@ public class Role {
     private Long id;
     //角色名称
     private String roleName;
+    //角色描述
+    private String description;
 
     public Long getId() {
         return id;
@@ -31,10 +33,19 @@ public class Role {
         this.roleName = roleName;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "Role{" +
-                "id=" + id +
+                "description='" + description + '\'' +
+                ", id=" + id +
                 ", roleName='" + roleName + '\'' +
                 '}';
     }

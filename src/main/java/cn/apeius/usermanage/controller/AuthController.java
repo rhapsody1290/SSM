@@ -24,7 +24,7 @@ public class AuthController {
     private UserService userService;
 
     @ResponseBody
-    @RequestMapping(value = "/login")
+    @RequestMapping(value = "/logintest")
     public Map<String,Object> login(User user, HttpSession session){
         Map<String, Object> result = new HashMap<String, Object>();
 

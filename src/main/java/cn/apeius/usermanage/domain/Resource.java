@@ -11,6 +11,7 @@ public class Resource {
     @Id
     private Long id;
     private String resourceName;
+    private String permission;
     private String url;
 
     public Long getId() {
@@ -37,11 +38,20 @@ public class Resource {
         this.url = url;
     }
 
+    public String getPermission() {
+        return permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
+
     @Override
     public String toString() {
         return "Resource{" +
                 "id=" + id +
                 ", resourceName='" + resourceName + '\'' +
+                ", permission='" + permission + '\'' +
                 ", url='" + url + '\'' +
                 '}';
     }

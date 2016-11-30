@@ -18,7 +18,7 @@ public interface RoleMapper extends Mapper<Role> {
     public List<Role> queryRolesByUserId(Long userId);
 
     //某个用户的所有权限
-    public Set<Resource> queryResourcesByUserId(Long userId);
+    public List<Resource> queryResourcesByUserId(Long userId);
 
     //查询角色的权限
     public List<Resource> queryResourceByRoleId(Long roleId);
